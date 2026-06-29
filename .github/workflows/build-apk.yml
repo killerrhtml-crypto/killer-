@@ -30,6 +30,10 @@ jobs:
         run: |
           npx cap add android || true
           npx cap sync
+          # Parche maestro: Elevar Gradle a 8.5 para evitar el bloqueo de Bouncy Castle
+          if [ -f android/gradle/wrapper/gradle-wrapper.properties ]; then
+            sed -i 's/gradle-8.2.1-all.zip/gradle-8.5-all.zip/g' android/gradle/wrapper/gradle-wrapper.properties
+          fi
 
       - name: Configurando Motor Java (JDK 17)
         uses: actions/setup-java@v4
