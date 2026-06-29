@@ -47,6 +47,21 @@ jobs:
           zipStorePath=wrapper/dists
           WEOF
 
+          # Parche Maestro 3: Limpieza de clases duplicadas de Kotlin obsoletas
+          if [ -f android/build.gradle ]; then
+            cat << 'KEOF' >> android/build.gradle
+
+            subprojects {
+                configurations.all {
+                    resolutionStrategy {
+                        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+                        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+                    }
+                }
+            }
+            KEOF
+          fi
+
       - name: Configurando Motor Java (JDK 21)
         uses: actions/setup-java@v4
         with:
