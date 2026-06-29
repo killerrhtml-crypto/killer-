@@ -31,7 +31,13 @@ jobs:
           npx cap add android || true
           npx cap sync
           
-          # Mantener sobreescritura para forzar Gradle 8.5
+          # Parche Maestro 1: Elevar el SDK a API 35 (Android 15) para desbloquear VANILLA_ICE_CREAM
+          if [ -f android/variables.gradle ]; then
+            sed -i -E 's/compileSdkVersion\s*=\s*[0-9]+/compileSdkVersion = 35/g' android/variables.gradle
+            sed -i -E 's/targetSdkVersion\s*=\s*[0-9]+/targetSdkVersion = 35/g' android/variables.gradle
+          fi
+          
+          # Parche Maestro 2: Forzar Gradle 8.5 para evitar bloqueos criptográficos
           mkdir -p android/gradle/wrapper
           cat << 'WEOF' > android/gradle/wrapper/gradle-wrapper.properties
           distributionBase=GRADLE_USER_HOME
