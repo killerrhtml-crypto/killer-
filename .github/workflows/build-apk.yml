@@ -2,7 +2,7 @@ name: Compilador Automatico de APK
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, principal ]
 
 jobs:
   compile:
