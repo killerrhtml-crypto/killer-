@@ -1,0 +1,9 @@
+dependencies {
+    // ... existentes ...
+
+    // Work Manager para tareas en background
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
+    implementation("androidx.work:work-multiprocess:2.8.1")
+
+    // ... resto de dependencias ...
+}
