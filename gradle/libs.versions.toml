@@ -1,0 +1,86 @@
+[versions]
+androidGradlePlugin = "8.1.2"
+kotlin = "1.9.10"
+compose = "1.6.0"
+composeCompiler = "1.5.3"
+hilt = "2.48"
+room = "2.6.1"
+retrofit = "2.9.0"
+okhttp = "4.11.0"
+targetSdk = "34"
+compileSdk = "34"
+
+[libraries]
+# Android
+android-gradle = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+hilt-gradle = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
+
+# AndroidX
+androidx-core-ktx = "androidx.core:core-ktx:1.12.0"
+androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
+androidx-activity-compose = "androidx.activity:activity-compose:1.8.0"
+androidx-lifecycle-runtime-ktx = "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2"
+androidx-security-crypto = "androidx.security:security-crypto:1.1.0-alpha06"
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+# Compose
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "compose" }
+compose-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+compose-material3 = "androidx.compose.material3:material3:1.1.1"
+compose-material-icons = "androidx.compose.material:material-icons-extended:1.6.0"
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
+
+# Coroutines
+kotlinx-coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+kotlinx-coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0"
+
+# Hilt
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt-navigation-compose = "androidx.hilt:hilt-navigation-compose:1.1.0"
+
+# Networking
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+
+# JWT
+auth0-jwt = "com.auth0:java-jwt:4.4.0"
+
+# Serialization
+gson = "com.google.code.gson:gson:2.10.1"
+
+# Logging
+timber = "com.jakewharton.timber:timber:5.0.1"
+
+# Location
+play-services-location = "com.google.android.gms:play-services-location:21.0.1"
+
+# Encryption
+sqlcipher = "net.zetetic:android-database-sqlcipher:4.5.4"
+tink = "com.google.crypto.tink:tink-android:1.10.0"
+
+# Testing
+junit = "junit:junit:4.13.2"
+mockito-kotlin = "org.mockito.kotlin:mockito-kotlin:5.1.0"
+kotlinx-coroutines-test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3"
+androidx-test-ext-junit = "androidx.test.ext:junit:1.1.5"
+androidx-test-espresso = "androidx.test.espresso:espresso-core:3.5.1"
+compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
