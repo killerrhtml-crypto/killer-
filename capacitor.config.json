@@ -1,0 +1,6 @@
+{
+  "appId": "com.killer.automation",
+  "appName": "Killer App",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
