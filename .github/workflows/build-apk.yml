@@ -40,26 +40,26 @@ jobs:
           # Parche Maestro 2: Forzar Gradle 8.5 para evitar bloqueos criptográficos
           mkdir -p android/gradle/wrapper
           cat << 'WEOF' > android/gradle/wrapper/gradle-wrapper.properties
-          distributionBase=GRADLE_USER_HOME
-          distributionPath=wrapper/dists
-          distributionUrl=https\://services.gradle.org/distributions/gradle-8.5-all.zip
-          zipStoreBase=GRADLE_USER_HOME
-          zipStorePath=wrapper/dists
-          WEOF
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+distributionUrl=https\://services.gradle.org/distributions/gradle-8.5-all.zip
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+WEOF
 
           # Parche Maestro 3: Limpieza de clases duplicadas de Kotlin obsoletas
           if [ -f android/build.gradle ]; then
             cat << 'KEOF' >> android/build.gradle
 
-            subprojects {
-                configurations.all {
-                    resolutionStrategy {
-                        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
-                        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
-                    }
-                }
-            }
-            KEOF
+subprojects {
+    configurations.all {
+        resolutionStrategy {
+            exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+            exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+        }
+    }
+}
+KEOF
           fi
 
       - name: Configurando Motor Java (JDK 21)
