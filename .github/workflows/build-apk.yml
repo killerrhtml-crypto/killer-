@@ -31,36 +31,16 @@ jobs:
           npx cap add android || true
           npx cap sync
           
-          # Parche Maestro 1: Elevar el SDK a API 35 (Android 15) para desbloquear VANILLA_ICE_CREAM
-          if [ -f android/variables.gradle ]; then
-            sed -i -E 's/compileSdkVersion\s*=\s*[0-9]+/compileSdkVersion = 35/g' android/variables.gradle
-            sed -i -E 's/targetSdkVersion\s*=\s*[0-9]+/targetSdkVersion = 35/g' android/variables.gradle
-          fi
+          # Parche 1: SDK 35
+          sed -i -E 's/compileSdkVersion\s*=\s*[0-9]+/compileSdkVersion = 35/g' android/variables.gradle
+          sed -i -E 's/targetSdkVersion\s*=\s*[0-9]+/targetSdkVersion = 35/g' android/variables.gradle
           
-          # Parche Maestro 2: Forzar Gradle 8.5 para evitar bloqueos criptográficos
+          # Parche 2: Gradle 8.5
           mkdir -p android/gradle/wrapper
-          cat << 'WEOF' > android/gradle/wrapper/gradle-wrapper.properties
-distributionBase=GRADLE_USER_HOME
-distributionPath=wrapper/dists
-distributionUrl=https\://services.gradle.org/distributions/gradle-8.5-all.zip
-zipStoreBase=GRADLE_USER_HOME
-zipStorePath=wrapper/dists
-WEOF
+          echo "distributionUrl=https\://services.gradle.org/distributions/gradle-8.5-all.zip" > android/gradle/wrapper/gradle-wrapper.properties
 
-          # Parche Maestro 3: Limpieza de clases duplicadas de Kotlin obsoletas
-          if [ -f android/build.gradle ]; then
-            cat << 'KEOF' >> android/build.gradle
-
-subprojects {
-    configurations.all {
-        resolutionStrategy {
-            exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
-            exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
-        }
-    }
-}
-KEOF
-          fi
+          # Parche 3: Limpieza de Kotlin (Usando echo para evitar problemas de multilínea YAML)
+          echo -e "\nsubprojects {\n    configurations.all {\n        resolutionStrategy {\n            exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'\n            exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'\n        }\n    }\n}" >> android/build.gradle
 
       - name: Configurando Motor Java (JDK 21)
         uses: actions/setup-java@v4
@@ -73,7 +53,7 @@ KEOF
           cd android
           ./gradlew assembleDebug
 
-      - name: Publicar Archivo APK para Descarga
+      - name: Publicar Archivo APK
         uses: actions/upload-artifact@v4
         with:
           name: Killer-App-Instalable
