@@ -3,6 +3,7 @@ package com.killer.automation.service
 import android.accessibilityservice.AccessibilityService
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityNodeInfo
 import com.killer.automation.data.OfferData
 import com.killer.automation.engine.DecisionEngine
 import com.killer.automation.manager.SubscriptionManager
@@ -48,7 +49,7 @@ class GestureInterceptor : AccessibilityService() {
         
         // VALIDACIÓN 1: Verificar si la suscripción está activa
         if (!subscriptionManager.isAutomationEnabled()) {
-            Log.w(TAG, "Automation disabled - Subscription: ${subscriptionManager.getSubscriptionStatus()}")
+            Log.w(TAG, "Automation disabled - Subscription: \${subscriptionManager.getSubscriptionStatus()}")
             return
         }
         
@@ -93,7 +94,7 @@ class GestureInterceptor : AccessibilityService() {
                 processOffer(offerData, event)
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Error handling window content: ${e.message}", e)
+            Log.e(TAG, "Error handling window content: \${e.message}", e)
         }
     }
     
@@ -102,10 +103,10 @@ class GestureInterceptor : AccessibilityService() {
      */
     private fun handleViewClicked(event: AccessibilityEvent) {
         try {
-            Log.d(TAG, "View clicked: ${event.source?.viewIdResourceName}")
+            Log.d(TAG, "View clicked: \${event.source?.viewIdResourceName}")
             // Puede usarse para auditoría o análisis
         } catch (e: Exception) {
-            Log.e(TAG, "Error handling view click: ${e.message}", e)
+            Log.e(TAG, "Error handling view click: \${e.message}", e)
         }
     }
     
@@ -113,17 +114,17 @@ class GestureInterceptor : AccessibilityService() {
      * Procesa una oferta usando el DecisionEngine
      */
     private fun processOffer(offerData: OfferData, event: AccessibilityEvent) {
-        Log.d(TAG, "Processing offer: ${offerData.offerId}")
+        Log.d(TAG, "Processing offer: \${offerData.offerId}")
         
         // VALIDACIÓN 2: Aplicar lógica local del DecisionEngine
         val isAcceptable = decisionEngine.isOfferAcceptable(offerData)
         
         if (isAcceptable) {
-            Log.i(TAG, "Offer accepted: ${offerData.offerId} - Executing action")
+            Log.i(TAG, "Offer accepted: \${offerData.offerId} - Executing action")
             // Ejecutar la acción de aceptar la oferta
             executeOfferAcceptance(offerData, event)
         } else {
-            Log.d(TAG, "Offer rejected: ${offerData.offerId} - Ignoring event")
+            Log.d(TAG, "Offer rejected: \${offerData.offerId} - Ignoring event")
             // No hacer nada - ignorar el evento
         }
     }
@@ -145,7 +146,7 @@ class GestureInterceptor : AccessibilityService() {
                 Log.w(TAG, "Accept button not found in current view")
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Error executing offer acceptance: ${e.message}", e)
+            Log.e(TAG, "Error executing offer acceptance: \${e.message}", e)
         }
     }
     
@@ -201,13 +202,13 @@ class GestureInterceptor : AccessibilityService() {
             val currentLocation = Pair(0.0, 0.0) // TODO: Obtener ubicación real
             
             OfferData(
-                offerId = "OFFER-${System.currentTimeMillis()}",
+                offerId = "OFFER-\${System.currentTimeMillis()}",
                 price = price,
                 distance = distance,
                 currentLocation = currentLocation
             )
         } catch (e: Exception) {
-            Log.e(TAG, "Error extracting offer data: ${e.message}", e)
+            Log.e(TAG, "Error extracting offer data: \${e.message}", e)
             null
         }
     }
@@ -237,11 +238,4 @@ class GestureInterceptor : AccessibilityService() {
     companion object {
         private const val TAG = "GestureInterceptor"
     }
-}
-
-// Extensión para usar AccessibilityNodeInfo.ACTION_CLICK
-import android.view.accessibility.AccessibilityNodeInfo
-
-fun AccessibilityNodeInfo.performAction(action: Int): Boolean {
-    return this.performAction(action)
 }
