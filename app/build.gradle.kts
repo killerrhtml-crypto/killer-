@@ -5,6 +5,9 @@ plugins {
     alias(libs.plugins.hilt.android)
 }
 
+// Apply keystore config to load signing properties if present
+apply(from = rootProject.file("app/keystore-config.gradle.kts"))
+
 android {
     namespace = "com.killer.automation"
     compileSdk = 34
