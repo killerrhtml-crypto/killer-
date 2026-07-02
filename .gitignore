@@ -1,0 +1,3 @@
+# Ignore local keystore and properties
+release-key.jks
+keystore.properties
