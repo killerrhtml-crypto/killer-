@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Killer Automation</string>
+    <string name="accessibility_service_description">Killer Automation: Servicio para detectar y aceptar ofertas de viaje.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Ajustes</string>
+    <string name="bot_enabled_label">Activar Bot de Automatización</string>
+    <string name="min_price_hint">Precio Mínimo</string>
+    <string name="zones_label">Zonas</string>
+    <string name="subscription_active">Suscripción activa</string>
+    <string name="subscription_inactive">Suscripción inactiva</string>
+    <string name="subscription_unknown">Estado de suscripción desconocido</string>
+    <string name="test_offer_button">Probar oferta</string>
+    <string name="offer_accepted">Oferta aceptada</string>
+    <string name="offer_rejected">Oferta rechazada</string>
+    <string name="test_offer_error">Error al evaluar oferta de prueba</string>
+    <string name="invalid_price">Precio inválido</string>
+</resources>
