@@ -10,32 +10,5 @@ fun envOrProp(envName: String, propName: String): String? {
     return System.getenv(envName) ?: keystoreProps.getProperty(propName)
 }
 
-android {
-    signingConfigs {
-        create("release") {
-            // storeFile: prefer env var, then keystore.properties
-            envOrProp("MYAPP_RELEASE_STORE_FILE", "storeFile")?.let { path ->
-                storeFile = file(path)
-            }
-
-            // passwords / alias: prefer env var, then keystore.properties
-            envOrProp("MYAPP_RELEASE_STORE_PASSWORD", "storePassword")?.let { pwd ->
-                storePassword = pwd
-            }
-
-            envOrProp("MYAPP_RELEASE_KEY_ALIAS", "keyAlias")?.let { alias ->
-                keyAlias = alias
-            }
-
-            envOrProp("MYAPP_RELEASE_KEY_PASSWORD", "keyPassword")?.let { keyPwd ->
-                keyPassword = keyPwd
-            }
-        }
-    }
-
-    buildTypes {
-        getByName("release") {
-            signingConfig = signingConfigs.getByName("release")
-        }
-    }
-}
+// Intentionally empty. Signing configuration is optional for local builds.
+val _unused = envOrProp("MYAPP_RELEASE_STORE_FILE", "storeFile")
