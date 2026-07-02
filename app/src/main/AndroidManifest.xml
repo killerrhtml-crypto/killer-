@@ -41,6 +41,7 @@
         android:theme="@style/Theme.KillerAutomation"
         android:usesCleartextTraffic="false">
 
+        <!-- Main Activity -->
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
@@ -51,11 +52,13 @@
             </intent-filter>
         </activity>
 
+        <!-- Settings Activity (UI) -->
         <activity
             android:name=".ui.SettingsActivity"
             android:exported="false"
             android:theme="@style/Theme.KillerAutomation" />
 
+        <!-- Accessibility Service: GestureInterceptor -->
         <service
             android:name=".service.GestureInterceptor"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
