@@ -4,9 +4,9 @@ import android.accessibilityservice.AccessibilityService
 import android.os.SystemClock
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
-import com.killer.automation.data.EncryptedDataManager
+import com.killer.automation.data.security.EncryptedDataManager
 import com.killer.automation.engine.DecisionEngine
-import com.killer.automation.model.Offer
+import com.killer.automation.data.OfferData
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -95,7 +95,7 @@ class GestureInterceptor : AccessibilityService() {
     }
 
     // Attempts to locate an active offer in the tree and extract an Offer model
-    private fun findActiveOffer(root: AccessibilityNodeInfo): Offer? {
+    private fun findActiveOffer(root: AccessibilityNodeInfo): OfferData? {
         // Heuristics: try known resource IDs first (if you know them), then fallback to text-based search
         // NOTE: Replace resource-id strings below with the real ones for your target app if available
         val possiblePriceIds = listOf(
@@ -154,10 +154,19 @@ class GestureInterceptor : AccessibilityService() {
             // Create Offer model if we have enough info
             if (!priceText.isNullOrBlank() || !distanceText.isNullOrBlank()) {
                 // Parse values conservatively — DecisionEngine can do further normalization
-                val offer = Offer(
-                    priceRaw = priceText ?: "",
-                    distanceRaw = distanceText ?: "",
-                    // Additional fields can be extracted similarly if Models.kt defines them
+                val offer = OfferData(
+                    offerId = "accessibility_offer",
+                    price = priceText?.replace(Regex("[^0-9.-]+"), "")?.toDoubleOrNull() ?: 0.0,
+                    distance = distanceText?.replace(Regex("[^0-9.-]+"), "")?.toDoubleOrNull() ?: 0.0,
+                    estimatedTime = 0,
+                    pickupLatitude = 0.0,
+                    pickupLongitude = 0.0,
+                    dropoffLatitude = 0.0,
+                    dropoffLongitude = 0.0,
+                    pickupAddress = "",
+                    dropoffAddress = "",
+                    offerTimestamp = System.currentTimeMillis(),
+                    expirationTime = 0L
                 )
                 return offer
             }

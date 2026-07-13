@@ -10,12 +10,12 @@ apply(from = rootProject.file("app/keystore-config.gradle.kts"))
 
 android {
     namespace = "com.killer.automation"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.killer.automation"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0.0"
 
@@ -36,7 +36,7 @@ android {
         }
         debug {
             isMinifyEnabled = false
-            debuggable = true
+            isDebuggable = true
         }
     }
 
@@ -54,15 +54,11 @@ android {
     }
 
     buildFeatures {
-        compose = true
         buildConfig = true
+        viewBinding = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
-
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
             excludes += "/META-INF/proguard/androidx-*.pro"

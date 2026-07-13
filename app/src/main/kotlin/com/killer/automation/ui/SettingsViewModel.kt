@@ -2,11 +2,11 @@ package com.killer.automation.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.killer.automation.data.EncryptedDataManager
 import com.killer.automation.data.UserPreferences
+import com.killer.automation.data.OfferData
+import com.killer.automation.data.OfferEvaluationResult
+import com.killer.automation.data.security.EncryptedDataManager
 import com.killer.automation.engine.DecisionEngine
-import com.killer.automation.model.OfferData
-import com.killer.automation.model.OfferEvaluationResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,6 +1,6 @@
 package com.killer.automation.di
 
-import com.killer.automation.data.EncryptedDataManager
+import com.killer.automation.data.security.EncryptedDataManager
 import com.killer.automation.engine.DecisionEngine
 import dagger.Module
 import dagger.Provides

@@ -2,17 +2,13 @@ package com.killer.automation.di
 
 import android.content.Context
 import android.view.WindowManager
-import androidx.room.Room
-import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.killer.automation.data.database.KillerDatabase
 import com.killer.automation.data.security.EncryptedDataManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import net.zetetic.database.sqlcipher.SupportFactory
 import javax.inject.Singleton
 
 /**
@@ -63,29 +59,4 @@ object AppModule {
         return EncryptedDataManager(context, masterKey)
     }
 
-    /**
-     * Proporciona la base de datos Room cifrada con SQLCipher
-     * Requiere EncryptedDataManager para obtener la contraseña de cifrado
-     */
-    @Singleton
-    @Provides
-    fun provideDatabase(
-        @ApplicationContext context: Context,
-        encryptedDataManager: EncryptedDataManager
-    ): KillerDatabase {
-        // Obtener o generar la contraseña de cifrado
-        val passphrase = encryptedDataManager.getOrGenerateDatabasePassphrase()
-        
-        // Crear factory de SQLCipher
-        val factory = SupportFactory(passphrase.toByteArray())
-        
-        return Room.databaseBuilder(
-            context.applicationContext,
-            KillerDatabase::class.java,
-            "killer_automation.db"
-        )
-            .openHelperFactory(factory)
-            .fallbackToDestructiveMigration()
-            .build()
-    }
 }
